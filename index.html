@@ -1,0 +1,184 @@
+<!DOCTXPE html>
+<html>
+    <head>
+        <title></title>
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="glyphicons.css">
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            
+            .card-container{
+	position: relative;
+	
+	perspective: 200rem;
+	height: 412px;
+}
+
+
+.card-back{
+	transform: rotateX(180deg);
+}
+
+.card{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	transition: all 0.9s;
+	backface-visibility: hidden;
+}
+
+.card-back .card-body{
+    position: relative;
+    top:15%;
+    bottom: 15%;
+    left:0;
+    width: 100%;
+
+}
+
+.card-body a{
+	position: absolute;
+	top:50%;
+	left: 50%;
+	margin: -15% 0 0 -23%;
+}
+@media only screen and (max-width: 600px) {
+    .card-back .card-body{
+    position: relative;
+    top:30%;
+    bottom: 15%;
+    left:0;
+    width: 100%;
+
+}
+}
+
+        </style>
+        <script>
+            function flip_card(){
+                document.getElementById('front').style.transform = "rotateX(-180deg)";
+                document.getElementById('back').style.transform = "rotateX(0deg)";
+                }
+                function flip_card_back(){
+                    document.getElementById('back').style.transform = "rotateX(180deg)";
+                document.getElementById('front').style.transform = "rotateX(0deg)";
+               
+                }
+        </script>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-inverse navbar-static-top" style="margin:0px;">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>                        
+                                </button>    
+                        <a href="index.html" class="navbar-brand">Coffee Shop</a>
+                                 </div>
+          
+                <div class="collapse navbar-collapse" id=mynavbar>      
+                <form class="nav navbar-right form-inline form-group" action="login_script" method="post" style="padding-top: 10px;">
+                                    
+                    <label for="email" style="  color: rgb(0,255,0);" class="nav-item">Email</label>&nbsp;
+                    <input type="email" name="email" id="email" class="form-control nav-item" placeholder="email" required="true">
+                    <label for="password" style="  color: rgb(0,255,0);" class="nav-item">Password</label>&nbsp;
+                    <input type="password" name="password" id="password" class="form-control nav-item" placeholder="password" id="pd" required="true">&nbsp;
+                    <button class="btn form-control nav-item" style="background-color: orange; color: black">Login</button>
+                    </form>	
+                    </div>
+                </div>
+                </nav>
+        
+        
+
+
+            <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-xs-10">
+                <div class="card-container ">
+                    <div class="card card-front" id="front">
+                      <img class="card-img-top" src="coffee2.jpg" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">Cappuccino</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        
+                        <span><button class="btn btn-info">Order</button> <button class="btn btn-info" onclick="flip_card()" style="float: right;;">Info</button>
+                        </span>
+                        
+                      </div>
+                    </div>
+                    <div class="card card-back " id="back">
+                      <div class="card-body " style="text-align: center;">
+                        <p>A cappuccino is an espresso-based coffee drink that originated in Italy, and is traditionally prepared with steamed milk foam. Variations of the drink involve the use of cream instead of milk, and flavoring with cinnamon or chocolate powder.</p>
+                        <button class="btn btn-info glyphicon " onclick="flip_card_back()">back</button>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+        
+            <div class="col-lg-3 col-xs-10">       
+                         <div class="card-container ">
+                    <div class="card card-front">
+                      <img class="card-img-top" src="Quotefancy-1881-3840x2160.jpg" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                         <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                      </div>
+                    </div>
+                    <div class="card card-back">
+                      <div class="card-body bg-warning">
+                        <a href="#" class="btn btn-success">Go somewhere</a>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+        
+                <div class="col-lg-3 col-xs-10">
+                <div class="card-container ">
+                    <div class="card card-front">
+                      <img class="card-img-top" src="Quotefancy-1958-3840x2160.jpg" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                         <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                      </div>
+                    </div>
+                    <div class="card card-back">
+                      <div class="card-body bg-warning">
+                        <a href="#" class="btn btn-success">Go somewhere</a>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+              
+
+
+    </body>
+</html>
