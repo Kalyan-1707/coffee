@@ -10,6 +10,10 @@
 	height: 300px;
 }
 
+body{
+	background-color:rgb(169,169,169);
+}
+
 .card-body .btn-group .btn{
     padding: 0px;
     margin: 0px;
