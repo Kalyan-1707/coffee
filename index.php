@@ -3,6 +3,13 @@
 
     $query="select * from items";
 
+    $error_log='';
+
+    if(isset($_GET['name']))
+    $error_log=$_GET['name'];
+
+    
+
 	$res=mysqli_query($con,$query) or die(mysqli_error($con));
 
  
@@ -29,7 +36,7 @@
         <script src="index.js"> </script>
         
     </head>
-    <body>
+    <body onload="error_log_pop_up()">
 
         <nav class="navbar navbar-inverse navbar-static-top" style="margin:0px;">
             <div class="container-fluid">
@@ -213,7 +220,7 @@
     </div>
 
 
-            <button class='btn btn-primary cart-btn btn-block notification' data-toggle="modal" data-target="#exampleModalCenter">
+            <button class='btn btn-primary cart-btn btn-block notification' id="open_cart_btn" data-toggle="modal" data-target="#exampleModalCenter">
               <i class="fas fa-shopping-cart"></i>
 
               <p class="badge" id="cart_notification_badge"></p>
@@ -249,10 +256,17 @@
     
   </tbody>
 </table>
+          <form action="orders.php" method="POST" id="form_place_order">
+          <input type="name" placeholder="your name" class="form-control" name="customer_name" id="customer_name" required>
+          <div id="items_input_box">
+            
+          </div>
       </div>
       <div class="modal-footer">
+      <p id="place_order_form_error_log" class="alert alert-danger"> <?php echo $error_log;?>  </p>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" >Place Order</button>
+        <button type="button" class="btn btn-primary" id="place_order_btn" onclick="validate_place_order()" >Place Order</button>
+        </form>
       </div>
     </div>
   </div>

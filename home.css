@@ -1,0 +1,52 @@
+.card-container{
+	position: relative;
+	perspective: 200rem;
+    height: 385px;
+    margin:15px;
+}
+
+.card-back{
+	transform: rotateX(180deg);
+}
+
+.card{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+    transition: all 0.9s;
+    border-radius: 18px;
+	backface-visibility: hidden;
+    text-align: center;
+    background-color: gray;
+  
+  
+}
+
+.card-text{
+    height:68px;
+}
+
+
+.card-back .card-body{
+    position: relative;
+    display: flex;
+}
+.card-body{
+    padding: 0px;
+}
+.card-body a{
+	position: absolute;
+	top:50%;
+	left: 50%;
+	margin: -15% 0 0 -23%;
+}
+@media only screen and (max-width: 767px) {
+    .card-back .card-body{
+    position: relative;
+    display: flex;
+    width: 100%;
+
+}
+
+
+}
