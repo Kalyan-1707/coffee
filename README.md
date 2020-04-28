@@ -7,5 +7,7 @@ Major features
 * Owners use **_admin_** panel to montior the orders based on token number..
 
 **APi's** 
-1._Paytm Payment Integration_.
-1._fast2sms_.
+
+1. _Paytm Payment Integration_.
+
+1 ._fast2sms_.
