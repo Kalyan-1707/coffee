@@ -10,4 +10,4 @@ Major features
 
 1. _Paytm Payment Integration_.
 
-1 ._fast2sms_.
+2. _fast2sms_.
