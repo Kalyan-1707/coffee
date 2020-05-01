@@ -31,6 +31,8 @@ body{
 	perspective: 200rem;
     height: 385px;
     margin:15px;
+    max-width: 380px;
+    max-height: 541px;
 }
 
 

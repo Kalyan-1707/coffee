@@ -14,11 +14,21 @@ function error_log_pop_up()
 function validate_place_order()
 {
   if(cart_items.size==0)
+  {
+    document.getElementById('place_order_form_error_log').style.display='block';
     document.getElementById('place_order_form_error_log').innerHTML='Add items to cart';
- 
+  }
           
     else if(document.getElementById('customer_name').value=="")
+    {
+      document.getElementById('place_order_form_error_log').style.display='block';
     document.getElementById('place_order_form_error_log').innerHTML='Enter your Name';
+    }
+    else if(!(/^[a-zA-Z0-9]+$/.test(document.getElementById('customer_name').value)))
+    {
+      document.getElementById('place_order_form_error_log').style.display='block';
+      document.getElementById('place_order_form_error_log').innerHTML='Name should contain only a-z,0-9';
+    }
   
     else
   {
@@ -42,6 +52,11 @@ function flip_card(card_id){
                
                 }
 
+  function update_cart_notifier()
+  {
+    document.getElementById('cart_notification_badge').innerHTML=cart_items.size;
+  }
+
  function cart(item_name,quantity)
    {
       
@@ -57,10 +72,24 @@ function flip_card(card_id){
 
       
 
+       update_cart_notifier();
        
-       document.getElementById('cart_notification_badge').innerHTML=cart_items.size;
 
        show_cart();
+ }
+
+ function remove_item(item_name)
+ {
+   if((parseInt(cart_items.get(item_name))-1)<=0)
+   {
+     cart_items.delete(item_name);
+   }
+   else
+   {
+      cart_items.set(item_name,(parseInt(cart_items.get(item_name))-1));
+   }
+      update_cart_notifier();
+      show_cart();
  }
 
 
@@ -75,6 +104,7 @@ function flip_card(card_id){
         table_row+='<td>'+entry[1]+'</td>';
         table_row+='<td>'+item_list.get(entry[0])+'</td>';
         table_row+='<td>'+entry[1]*item_list.get(entry[0])+'</td>';
+        table_row+='<td>'+'<i class="fas fa-minus-circle btn" onclick="remove_item(\''+entry[0]+'\')"></i>'+'</td>';
         table_row+='</tr>';
         items+=entry[0]+':'+entry[1]+',';
       }

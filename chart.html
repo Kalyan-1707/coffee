@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+         <script src="https://kit.fontawesome.com/9d2de32d23.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+        <script src="chart.js"></script>
+    </head>
+
+    <body onload="fetch_data()">
+
+
+        <div class="container mx-auto">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+
+                    <canvas id="bar-chart">
+
+                    </canvas>
+
+
+
+                </div>
+                <div class="col-xs-12 col-md-6 ">
+                
+                    
+                    <canvas id="doughnutChart"></canvas>
+                    
+
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+
+                    <canvas id="bar-chart3">
+
+                    </canvas>
+
+                    
+
+                </div>
+            </div>
+            
+        </div>
+    </body>
+</html>
+
+<script>
+
+   function second(){
+
+    var year=[2010,2011,2012,2013,2014];
+    var data_values={
+        labels:year,
+        datasets:[
+            {
+                label:'abd',
+        data:[1200,1300,1800,2200,1600],
+        backgroundColor:[
+            'rgb(255,0,0,0.3)',
+            'rgb(255,0,0,0.3)',
+            'rgb(255,0,0,0.3)',
+            'rgb(255,0,0,0.3)',
+            'rgb(255,0,0,0.3)'
+        ],
+        borderColor:[
+        'rgb(0,0,255,1.0)',
+        'rgb(0,0,255,1.0)',
+        'rgb(0,0,255,1.0)',
+        'rgb(0,0,255,1.0)',
+        'rgb(0,0,255,1.0)'
+        ],
+        borderWidth:1
+     }
+    ]
+    };
+ 
+  
+    var chartid3=document.getElementById('bar-chart3').getContext('2d');
+
+    
+    var myChart = new Chart(chartid3,{
+        type:'bar',
+        data:data_values,
+       
+    });
+    
+  
+}
+</script>

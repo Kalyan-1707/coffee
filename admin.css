@@ -1,0 +1,18 @@
+body
+{
+    display: flex;
+    margin:0px;
+}
+
+
+.card
+{
+    margin-top: 10px;
+    max-width: 300px;
+}
+.card-title
+{
+    display: flex;
+    justify-content: center;
+
+}

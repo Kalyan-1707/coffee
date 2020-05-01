@@ -8,6 +8,7 @@
     if(isset($_GET['name']))
     $error_log=$_GET['name'];
 
+    $stats_color=['rgb(255,7, 110)','rgb(252, 73, 3)','rgb(237, 9, 47)'];
     
 
 	$res=mysqli_query($con,$query) or die(mysqli_error($con));
@@ -68,65 +69,7 @@
 
             <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-xs-10">
-                <div class="card-container ">
-                    <div class="card card-front" id="front1">
-                      <img class="card-img-top" src="coffee2.jpg" alt="Card image cap" >
-                      <div class="card-body">
-                        
-                        <div class="card-text">
-                        <h5 class="card-title">Cappuccino</h5>
-                        <p class="price">₹ 100.00</p>
-                      </div>
-                        
-
-                        <div class="btn-group btn-block" role="group" aria-label="">
-                          <button type="button" class="btn btn-success"  >Order</button>
-                          
-                          
-                          <button type="button" class="btn btn-info" onclick='flip_card(1)'>Info</button>
-                        </div>
-
-                        <div class="card-btn-group">
-                          <div class="card-btn">
-                            <button type="button" class="btn btn-block"
-                              onclick="if(document.getElementById('quantity').value>1)document.getElementById('quantity').value--;">&nbsp;-&nbsp;</button>
-                          </div>
-                          <div class="card-btn">
-                            <input type="number" class="form-control" value="1" min="1" max="10" id="quantity" disabled>
-                           
-                        </div>
-                          <div class="card-btn">
-                            <button type="button " class="btn  btn-block" onclick="if(document.getElementById('quantity').value<10)document.getElementById('quantity').value++;"> + </button>
-                          </div>
-                        </div>
-                       
-                      </div>
-                       </div>
-                    <div class="card card-back " id="back1">
-                      <div class="card-body" >
-                        <p>A cappuccino is an espresso-based coffee drink that originated in Italy, and is traditionally prepared with steamed milk foam. Variations of the drink involve the use of cream instead of milk, and flavoring with cinnamon or chocolate powder.</p>
-                        </div>
-                        <button class="btn btn-info glyphicon " onclick="flip_card_back(1)">back</button>
-                        <div class="card-status">
-                          <div class="stat">
-                            <div class="value">200ml</div>
-                            <div class="type">Quantity</div>
-                          </div>
-                          <div class="stat">
-                            <div class="value">55</div>
-                            <div class="type">Calories</div>
-                          </div>
-                          <div class="stat">
-                            <div class="value">500 lt</div>
-                            <div class="type">Served</div>
-                          </div>
-                        </div>
-                      </div>
-
-                </div>
-
-            </div>
+               
 
 
 
@@ -139,7 +82,7 @@
                ?>
 
             
-                <div class="col-lg-4 col-xs-10">
+                <div class="col-lg-4 col-sm-6 col-xs-10">
                 <div class="card-container ">
                     <div class="card card-front" id="<?php echo "front".$count; ?>">
                       <img class="card-img-top" src="<?php echo $row['image'];?>" alt="Card image cap" >
@@ -158,13 +101,13 @@
                           <button type="button" class="btn btn-info" onclick='flip_card(<?php echo $count; ?>)'>Info</button>
                         </div>
 
-                        <div class="card-btn-group">
+                        <div class="card-btn-group" style="background:<?php echo $stats_color[(($count+1)%3)];?>">
                           <div class="card-btn">
                             <button type="button" class="btn btn-block"
                               onclick="if(document.getElementById(<?php echo $count;?>).value>1)document.getElementById(<?php echo $count;?>).value--;">&nbsp;-&nbsp;</button>
                           </div>
                           <div class="card-btn">
-                            <input type="number" class="form-control" value="1" min="1" max="10" id="<?php echo $count; ?>" disabled>
+                            <input type="number" class="form-control" value="1" min="1" max="10" id="<?php echo $count; ?>"  disabled>
                            
                         </div>
                           <div class="card-btn">
@@ -179,7 +122,7 @@
                         <p>A cappuccino is an espresso-based coffee drink that originated in Italy, and is traditionally prepared with steamed milk foam. Variations of the drink involve the use of cream instead of milk, and flavoring with cinnamon or chocolate powder.</p>
                         </div>
                         <button class="btn btn-info glyphicon " onclick="flip_card_back(<?php echo $count;?>)">back</button>
-                        <div class="card-status">
+                        <div class="card-status" style="background:<?php echo $stats_color[($count%3)];?>">
                           <div class="stat">
                             <div class="value"><?php echo $row['capacity'];?></div>
                             <div class="type">Quantity</div>
@@ -242,7 +185,7 @@
         </button>
       </div>
       <div class="modal-body">
-      <table class="table table-dark">
+      <table class="table table-dark table-responsive">
   <thead>
     <tr>
       
@@ -250,6 +193,7 @@
       <th scope="col">Quantity</th>
       <th scope="col">Price</th>
       <th scope="col">Total</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody id='cart_table'>
@@ -263,7 +207,7 @@
           </div>
       </div>
       <div class="modal-footer">
-      <p id="place_order_form_error_log" class="alert alert-danger"> <?php echo $error_log;?>  </p>
+      <p id="place_order_form_error_log" class="alert alert-danger" style="display:none;"> <?php echo $error_log;?>  </p>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="place_order_btn" onclick="validate_place_order()" >Place Order</button>
         </form>
