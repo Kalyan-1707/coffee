@@ -1,5 +1,6 @@
 var orders_data={};//data fetched from database.
 var items_data={};//data fetched from database.
+var pending_orders={};//data of pending orders.
 
 let orders_chart_labels=Array();
 
@@ -24,9 +25,11 @@ function fetch_data(e){
 
         items_data=JSON.stringify(data.items);
 
+        pending_orders=JSON.stringify(data.pendingOrders);
 
         orders_chart();
         items_chart();
+        pending_orders_table();
         second();
   
         }
@@ -110,7 +113,7 @@ function items_chart(){
     for(i=0;i<items_data.length;i++)
     {
         items_temp=items_data[i].split(":");
-        items_chart_labels.push(items_temp[0]);
+        items_chart_labels.push(items_temp[0].slice(1,items_temp[0].length-1));//slicing of ""
         items_chart_data.push(items_temp[1]);
     }
 
@@ -154,5 +157,39 @@ legend:{
     return  day+' ' +monthNames[monthIndex];
   }
 
+
+  function pending_orders_table()
+  {
+
+    pending_orders=pending_orders.slice(2,pending_orders.length-2);
+    pending_orders=pending_orders.split('","');
+
+    let pending_order_temp={};
+    let custname='';
+    let tokenid='';
+    let items='';
+
+    let table='';
+
+    for(i=0;i<pending_orders.length;i++)
+    {
+      pending_order_temp=pending_orders[i].split('":"');
+      custname=pending_order_temp[0].split(' ');
+      tokenid=custname[1];
+      custname=custname[0];
+      items=pending_order_temp[1];
+
+     table+='<tr>';
+     table+='<th scope="row">'+ tokenid +'</th>';
+    table+='<td>'+ custname +'</td>';
+    table+='<td>' + items + '</td>';
+    table+='<td>' + 'Pending' +'</td>';
+    table+='</tr>';
+
+    }
+
+    document.getElementById('pending_orders_table').innerHTML=table;
+
+  }
 
   
