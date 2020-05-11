@@ -2,7 +2,18 @@ body{
     background-color: rgb(0,0,0);
     margin-bottom: 10px;
 }
+#admin
+{
+    display: none;
+}
 
+.navbar .navbar-collapse form label{
+    color: rgb(0,255,0);
+}
+.navbar form button{
+background-color: orange;
+ color: black"
+}
 .cart-btn{
     position: fixed;
     left: 20px;

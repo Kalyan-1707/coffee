@@ -37,32 +37,29 @@
         <script src="index.js"> </script>
         
     </head>
-    <body onload="error_log_pop_up()">
+    <body >
 
-        <nav class="navbar navbar-inverse navbar-static-top" style="margin:0px;">
-            <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mynavbar">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>                        
-                                </button>    
-                        <a href="index.html" class="navbar-brand">Coffee Shop</a>
-                                 </div>
-          
-                <div class="collapse navbar-collapse" id=mynavbar>      
-                <form class="nav navbar-right form-inline form-group" action="login_script" method="post" style="padding-top: 10px;">
-                                    
-                    <label for="email" style="  color: rgb(0,255,0);" class="nav-item">Email</label>&nbsp;
-                    <input type="email" name="email" id="email" class="form-control nav-item" placeholder="email" required="true">
-                    <label for="password" style="  color: rgb(0,255,0);" class="nav-item">Password</label>&nbsp;
-                    <input type="password" name="password" id="password" class="form-control nav-item" placeholder="password" id="pd" required="true">&nbsp;
-                    <button class="btn form-control nav-item" style="background-color: orange; color: black">Login</button>
-                    </form>	
-                    </div>
-                </div>
-                </nav>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <a class="navbar-brand" onclick="adminFormShow()" href="#">Coffee</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="collapsibleNavbar">
+
+            <form class="nav  form-inline form-group ml-auto" id="admin" action="login_script" method="post" >
+                                  
+                                   <label  for="email" class="nav-item ">Email</label>&nbsp;
+                                    <input  type="email" name="email" id="email" class="form-control nav-item " placeholder="email" required="true">
+                                    <label  for="password"  class="nav-item ">Password</label>&nbsp;
+                                    <input  type="password" name="password" id="password" class="form-control  nav-item" placeholder="password" id="pd" required="true">&nbsp;
+                                    <button  class="btn form-control nav-item " >Login</button>
+                                  
+                    <button class="btn form-control nav-item" onclick="adminFormHide()" type="button">Close</button>
+            </form>
+                                   	
+            </div>  
+        </nav>
+
         
         
 

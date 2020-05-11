@@ -5,6 +5,15 @@ item_list.set('Espresso Italiano',79);
 item_list.set('Brrrista',137);
 item_list.set('Vanilla Latte',160);
 
+function adminFormHide(){
+  document.getElementById('admin').style.display="none";
+}
+
+function adminFormShow(){
+  document.getElementById('admin').style.display="inline-flex";
+}
+
+
 function error_log_pop_up()
 {
   if(document.getElementById('place_order_form_error_log').innerHTML!='')
