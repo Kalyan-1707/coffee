@@ -2,9 +2,113 @@ var orders_data={};//data fetched from database.
 var items_data={};//data fetched from database.
 var pending_orders={};//data of pending orders.
 
-let orders_chart_labels=Array();
+function setDate(){
+  
+var today = new Date();
+var dd = today.getDate();
 
-let orders_chart_data=Array();
+var mm = today.getMonth()+1; 
+var yyyy = today.getFullYear();
+if(dd<10) 
+{
+    dd='0'+dd;
+} 
+
+if(mm<10) 
+{
+    mm='0'+mm;
+} 
+today = yyyy+'-'+mm+'-'+dd;
+document.getElementById('date_table').value=today;
+
+fetch_data_date();
+
+}
+
+function fetch_data_date()
+{
+  
+  let date=document.getElementById('date_table').value;
+  let orderStatus = document.getElementById("orderStatus");
+  orderStatus = orderStatus.options[orderStatus.selectedIndex].value;
+  var xhr=new XMLHttpRequest();
+  
+  var pars="date="+date +"&" +"status="+orderStatus;
+  
+    xhr.open('POST','chartdata.php',true);
+  
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.onload=function(){
+       if(this.status == 200)
+        {
+         console.log("Sending");
+    
+        var data=JSON.parse(this.responseText);
+
+        orders_data=JSON.stringify(data.orders);
+
+        items_data=JSON.stringify(data.items);
+
+        pending_orders=JSON.stringify(data.pendingOrders);
+
+        if(pending_orders == "[]")
+        {
+            let orders_chart_labels=Array();
+
+           let orders_chart_data=Array();
+           orders_data=orders_data.slice(1,orders_data.length-1); //Removing {}
+
+            let ele_order=orders_data.split(",");//spliting into array of objects
+
+            for(i=0;i<ele_order.length;i++)
+            {
+              let date_value=ele_order[i].split(":");
+                orders_chart_labels.push(formatDate( new Date(date_value[0].slice(1,date_value[0].length-1))));
+                orders_chart_data.push(date_value[1]);
+            }
+
+          document.getElementById('pending_orders_table').innerHTML="No orders try another date or different status </br> ex:"+orders_chart_labels+",pending";
+        }
+        else{
+       pending_orders_table();
+        }
+        }
+      } 
+      console.log(pars);
+      xhr.send(pars);
+}
+
+
+function itemDelivered(tokenid,status)
+{ 
+ 
+  var xhr=new XMLHttpRequest();
+  
+  //	enum('Pending', 'Delivered', 'Cancelled', '')
+
+  let date=document.getElementById('date_table').value;  
+
+  var pars="token="+tokenid + "&" +"status="+status +"&"+ "date="+date;
+
+    
+  
+    xhr.open('POST','updateStatus.php',true);
+  
+    xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    xhr.onload=function(){
+       if(this.status == 200)
+        {
+         console.log("Sending");
+    
+         fetch_data_date();
+       
+        }
+      } 
+      xhr.send(pars);
+
+}
+
+
 
 function fetch_data(e){
 
@@ -27,11 +131,8 @@ function fetch_data(e){
 
         pending_orders=JSON.stringify(data.pendingOrders);
 
-        orders_chart();
-        items_chart();
-        pending_orders_table();
-        second();
-  
+       pending_orders_table();
+       
         }
       } 
       xhr.send();
@@ -90,6 +191,7 @@ function fetch_data(e){
     var myChart = new Chart(chartid,{
         type:'bar',
         data:data_values,
+        responsive:true,
        
     });
 
@@ -161,6 +263,8 @@ legend:{
   function pending_orders_table()
   {
 
+    let orderStatus = document.getElementById("orderStatus");
+    orderStatus = orderStatus.options[orderStatus.selectedIndex].value;
     pending_orders=pending_orders.slice(2,pending_orders.length-2);
     pending_orders=pending_orders.split('","');
 
@@ -178,12 +282,21 @@ legend:{
       tokenid=custname[1];
       custname=custname[0];
       items=pending_order_temp[1];
-
+      items=items.split(',');
+      color=['primary','warning','success'];
      table+='<tr>';
      table+='<th scope="row">'+ tokenid +'</th>';
     table+='<td>'+ custname +'</td>';
-    table+='<td>' + items + '</td>';
-    table+='<td>' + 'Pending' +'</td>';
+    table+='<td>'; 
+    for(j=0;j<items.length;j++)
+    {
+      items_temp=items[j].split(':');
+      table+='<div class="double-val-label"><span class="'+(color[j%2])+' item">'+items_temp[0]+'</span>';
+      table+='<span class="qty">'+items_temp[1]+'</span></div>';
+    }
+    table+='</td>';
+    table+='<td>' + orderStatus +'</td>';
+    table+='<td>'+'<button class="btn" onclick="itemDelivered('+ tokenid  +',\'Delivered\')"><i class="fas fa-check-circle"></i></button></td>';
     table+='</tr>';
 
     }

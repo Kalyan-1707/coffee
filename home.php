@@ -35,8 +35,12 @@ if($isValidChecksum == "TRUE") {
 	}
 
 	if (isset($_POST) && count($_POST)>0 )
-	{ 
+	{
+	    if(isset($_POST['PAYMENTMODE']) && isset($_POST['TXNDATE']))
 		$query="UPDATE `orders` SET `TXNAMOUNT` = '".$_POST['TXNAMOUNT']."', `PAYMENTMODE` = '".$_POST['PAYMENTMODE']."', `TXNDATE` = '".$_POST['TXNDATE']."', `STATUS` = '".$_POST['STATUS']."', `RESPMSG` = '".$_POST['RESPMSG']."' WHERE orderid='".$_POST['ORDERID']."' and amount='".$_POST['TXNAMOUNT']."' ";
+		 else
+      $query="UPDATE `orders` SET `TXNAMOUNT` = '".$_POST['TXNAMOUNT']."',  `STATUS` = '".$_POST['STATUS']."', `RESPMSG` = '".$_POST['RESPMSG']."' WHERE orderid='".$_POST['ORDERID']."' and amount='".$_POST['TXNAMOUNT']."' ";
+ 
         $row=mysqli_query($con,$query) or die(mysqli_error($con));
     }
 
@@ -44,10 +48,15 @@ if($isValidChecksum == "TRUE") {
     $query="select * from orders where orderid='".$_POST['ORDERID']."' ";
     $res=mysqli_query($con,$query) or die(mysqli_error($con));
 
-    $token_id=0;
-
     $row=mysqli_fetch_array($res);
 
+    $cust_num=$row['custnum'];
+    
+    $cust_name=$row['custname'];
+
+    $token_id=0;
+
+    
     $items=$row['items'];
 
     $items=explode(',',$items);
@@ -90,7 +99,7 @@ if($isValidChecksum == "TRUE") {
       
       else
       {
-        echo "resetting token";
+   
         $token_id=1;
         
         $query="update token set tokenid='".$token_id."',tokendate='".$date_token."' where id=1 ";
@@ -102,6 +111,54 @@ if($isValidChecksum == "TRUE") {
       $query="update orders set tokenid='".$token_id."' where orderid='".$_POST['ORDERID']."' ";
 
       $row=mysqli_query($con,$query) or die(mysqli_error($con));
+
+     $msg="Hey ".$cust_name.", thanks for dining with us."."Your token number is - ".$token_id;
+
+     $field = array(
+    "sender_id" => "FSTSMS",
+    "language" => "english",
+    "route" => "qt",
+    "numbers" => "$cust_num",
+    "message" => "26604",
+    "variables" => "{#BB#}|{#AA#}",
+    "variables_values" => "$cust_name|$token_id"
+);
+
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://www.fast2sms.com/dev/bulk",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_SSL_VERIFYHOST => 0,
+          CURLOPT_SSL_VERIFYPEER => 0,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "POST",
+          CURLOPT_POSTFIELDS => json_encode($field),
+          CURLOPT_HTTPHEADER => array(
+            "authorization: X1iAb0ruWli6t04e32zWBLtVIcqXAu4M8Jjh1TUb1JIq7sHP3k1cSM7YIDna",
+            "cache-control: no-cache",
+            "accept: */*",
+            "content-type: application/json"
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        
+        curl_close($curl);
+        
+        if ($err) {
+          //echo "cURL Error #:" . $err;
+        } else {
+          //echo $response;
+        }
+
+
+
+
 
     }
   

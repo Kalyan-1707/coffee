@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['uname']))
+{
+    header('location:https://thunder1707.000webhostapp.com/');
+}
+
+?>
+
+
+
+
 <html>
     <head>
         <title></title>
@@ -7,20 +20,45 @@
          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
          <script src="https://kit.fontawesome.com/9d2de32d23.js" crossorigin="anonymous"></script>
     
-        <script src="chart.js"></script>
+         <script src="chart.js"></script>
 
         <link rel="stylesheet" href="chart.css">
     </head>
 
-    <body onload="fetch_data()">
+    <body onload="setDate()">
+
+
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <a class="navbar-brand" href="#">Coffee</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="logout.php">Logout</a>
+                </li>    
+              </ul>
+            </div>
+          </nav>
 
         <div class="vertical-center">
         <div class="container">
             <div class="row mx-auto justify-content-center">
-                
-               
+            
+            <div class="mx-auto"><p><i class="fas fa-info-circle"></i>Click on done if order is Delivered.</p></div>
+            <div>
+            <input type="date" id="date_table"  onchange="fetch_data_date()">
+            <select id="orderStatus" onchange="fetch_data_date()">
+            <option value="Pending" selected>Pending</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+            </select>
+            </div>
                 <div class="col-xs-12">
                     <div class="card">
+                        
                 <table class="table table-hover"  >
 
                     <thead>
@@ -47,46 +85,3 @@
     </body>
 </html>
 
-<script>
-
-   function second(){
-
-    var year=[2010,2011,2012,2013,2014];
-    var data_values={
-        labels:year,
-        datasets:[
-            {
-                label:'abd',
-        data:[1200,1300,1800,2200,1600],
-        backgroundColor:[
-            'rgb(255,0,0,0.3)',
-            'rgb(255,0,0,0.3)',
-            'rgb(255,0,0,0.3)',
-            'rgb(255,0,0,0.3)',
-            'rgb(255,0,0,0.3)'
-        ],
-        borderColor:[
-        'rgb(0,0,255,1.0)',
-        'rgb(0,0,255,1.0)',
-        'rgb(0,0,255,1.0)',
-        'rgb(0,0,255,1.0)',
-        'rgb(0,0,255,1.0)'
-        ],
-        borderWidth:1
-     }
-    ]
-    };
- 
-  
-    var chartid3=document.getElementById('bar-chart3').getContext('2d');
-
-    
-    var myChart = new Chart(chartid3,{
-        type:'bar',
-        data:data_values,
-       
-    });
-    
-  
-}
-</script>

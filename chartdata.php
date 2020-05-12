@@ -1,9 +1,17 @@
 <?php
 
  require 'common.php';
+ 
+ 
+//enum('Pending', 'Delivered', 'Cancelled', '')
+ $order_status="Pending";
 
  $today_date=date("Y-m-d");
  $today_date=date("2020-04-25");
+ if(isset($_POST['date']))
+   $today_date=$_POST['date'];
+ if(isset($_POST['status']))
+   $order_status=$_POST['status'];
  $orders_temp='';//temporary variable to process orders data.
  $items_temp='';//temporary variable to process items data.
  $pending_orders_date_temp='';//to extract date from txndate of order.
@@ -39,7 +47,7 @@
             $items_chart_values[$x[0]]=$x[1];
          }
      }
-     if($pending_orders_date_temp[0]==$today_date && $row['orderStatus']=='Pending')
+     if($pending_orders_date_temp[0]==$today_date && $row['orderStatus']==$order_status)
      {
 
          $pending_orders[$row['custname'].' '.$row['tokenid']]=$row['items'];//adding data in form 'custname tokenid=items'

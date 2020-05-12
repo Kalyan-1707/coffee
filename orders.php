@@ -1,4 +1,7 @@
 <?php
+	header("Pragma: no-cache");
+	header("Cache-Control: no-cache");
+	header("Expires: 0");	
 
 require 'common.php';
 
@@ -6,22 +9,22 @@ $item_list_db=array();
 
 $item_list=array();
 
+$cust_num = strip_tags(mysqli_real_escape_string($con,$_POST['customer_num']));
+
 $cust_name = strip_tags(mysqli_real_escape_string($con,$_POST['customer_name']));
 $items = strip_tags(mysqli_real_escape_string($con,$_POST['items']));
 
-if(!(preg_match('/^[a-zA-z0-9-.@_] $/',$cust_name)))
-{
-	header('location:http://localhost/coffee/index.php?name=invalid_name');
-}
+
+
+
+if($items==NULL || $cust_name==NULL || $cust_num==NULL)
+	header('location:https://thunder1707.000webhostapp.com/index.php?items=cart_is_empty');
 
 else
 {
-
-if($items==NULL || $cust_name==NULL)
-	header('location:http://localhost/coffee/index.php?items=cart_is_empty');
-
-else
-{
+    
+    
+    
 $query="select * from items";
 
 $res=mysqli_query($con,$query) or die(mysqli_error($con));
@@ -58,22 +61,19 @@ $orderid="ORDS" . rand(10000,99999999);
 
 
 
-$query="INSERT INTO `orders` (`id`, `items`, `custname`, `amount`, `orderid`) VALUES (NULL, '$items', '$cust_name', $amount, '$orderid')";
+$query="INSERT INTO `orders` (`id`, `items`, `custname`, `amount`, `orderid`,`custnum`) VALUES (NULL, '$items', '$cust_name', $amount, '$orderid','$cust_num')";
 
 $res=mysqli_query($con,$query) or die(mysqli_error($con));
 
 }
 
-}
-?>
 
 
-<?php
-	header("Pragma: no-cache");
-	header("Cache-Control: no-cache");
-	header("Expires: 0");	
 
 ?>
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>

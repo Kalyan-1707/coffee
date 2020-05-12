@@ -2,6 +2,8 @@ body{
     background-color: rgb(0,0,0);
     margin-bottom: 10px;
 }
+
+
 #admin
 {
     display: none;
@@ -11,9 +13,12 @@ body{
     color: rgb(0,255,0);
 }
 .navbar form button{
-background-color: orange;
- color: black"
+
+ background-color: orange;
+ color: black;
 }
+
+
 .cart-btn{
     position: fixed;
     left: 20px;
@@ -42,8 +47,6 @@ background-color: orange;
 	perspective: 200rem;
     height: 385px;
     margin:15px;
-    max-width: 380px;
-    max-height: 541px;
 }
 
 

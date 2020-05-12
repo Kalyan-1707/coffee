@@ -8,8 +8,7 @@
     if(isset($_GET['name']))
     $error_log=$_GET['name'];
 
-    $stats_color=['rgb(255,7, 110)','rgb(252, 73, 3)','rgb(237, 9, 47)'];
-    
+     $stats_color=['rgb(255,7, 110)','rgb(252, 73, 3)','rgb(237, 9, 47)'];
 
 	$res=mysqli_query($con,$query) or die(mysqli_error($con));
 
@@ -34,41 +33,38 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <script src="index.js"> </script>
+      
         
     </head>
     <body >
 
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+         <nav class="navbar navbar-expand-md bg-dark navbar-dark">
             <a class="navbar-brand" onclick="adminFormShow()" href="#">Coffee</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" id="navbar-toggler-btn" data-target="#collapsibleNavbar">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse " id="collapsibleNavbar">
 
-            <form class="nav  form-inline form-group ml-auto" id="admin" action="login_script" method="post" >
+            <form class="nav  form-inline form-group ml-auto" id="admin" method="POST">
                                   
-                                   <label  for="email" class="nav-item ">Email</label>&nbsp;
-                                    <input  type="email" name="email" id="email" class="form-control nav-item " placeholder="email" required="true">
+                                   <label  for="uname" class="nav-item ">Username</label>&nbsp;
+                                    <input  type="text" name="uname" id="admin_uname" class="form-control nav-item " placeholder="uname" required="true">
                                     <label  for="password"  class="nav-item ">Password</label>&nbsp;
-                                    <input  type="password" name="password" id="password" class="form-control  nav-item" placeholder="password" id="pd" required="true">&nbsp;
-                                    <button  class="btn form-control nav-item " >Login</button>
+                                    <input  type="password" name="password" id="admin_pwd"  class="form-control  nav-item" placeholder="password" id="pd" required="true">&nbsp;
+                                    <button  class="btn form-control nav-item " id="admin_login_btn"   >Login</button>
                                   
-                    <button class="btn form-control nav-item" onclick="adminFormHide()" type="button">Close</button>
+                    <button class="btn form-control nav-item" onclick="adminFormHide()">Close</button>
             </form>
                                    	
             </div>  
         </nav>
-
         
         
 
 
-            <div class="container">
+           <div class="container">
             <div class="row">
                
-
-
 
 
 
@@ -92,7 +88,7 @@
                         
 
                         <div class="btn-group btn-block" role="group" aria-label="">
-                          <button type="button" class="btn btn-success" onclick="cart('<?php echo $row['name'];?>',document.getElementById(<?php echo $count;?>).value);">Order</button>
+                          <button type="button" class="btn btn-success" onclick="cart('<?php echo $row['name'];?>',document.getElementById(<?php echo $count;?>).value);">Add</button>
                           
                           
                           <button type="button" class="btn btn-info" onclick='flip_card(<?php echo $count; ?>)'>Info</button>
@@ -104,7 +100,7 @@
                               onclick="if(document.getElementById(<?php echo $count;?>).value>1)document.getElementById(<?php echo $count;?>).value--;">&nbsp;-&nbsp;</button>
                           </div>
                           <div class="card-btn">
-                            <input type="number" class="form-control" value="1" min="1" max="10" id="<?php echo $count; ?>"  disabled>
+                            <input type="number" class="form-control" value="1" min="1" max="10" id="<?php echo $count; ?>" disabled>
                            
                         </div>
                           <div class="card-btn">
@@ -177,6 +173,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalCenterTitle">Check out</h5>
+        <div class="mx-auto"><button class="btn btn-info" id="total_amt"></button></div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -188,9 +185,7 @@
       
       <th scope="col">Item</th>
       <th scope="col">Quantity</th>
-      <th scope="col">Price</th>
       <th scope="col">Total</th>
-      <th scope="col"></th>
     </tr>
   </thead>
   <tbody id='cart_table'>
@@ -199,12 +194,16 @@
 </table>
           <form action="orders.php" method="POST" id="form_place_order">
           <input type="name" placeholder="your name" class="form-control" name="customer_name" id="customer_name" required>
+          </br>
+          <input type="number" placeholder="your number" class="form-control" name="customer_num" id="customer_num" required>
+          </br>
+          <div class="mx-auto"><p><i class="fas fa-info-circle"></i>You will be notified via sms.</p></div>
           <div id="items_input_box">
             
           </div>
       </div>
       <div class="modal-footer">
-      <p id="place_order_form_error_log" class="alert alert-danger" style="display:none;"> <?php echo $error_log;?>  </p>
+      <p id="place_order_form_error_log" class="alert alert-danger" style="display:none;"> </p>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="place_order_btn" onclick="validate_place_order()" >Place Order</button>
         </form>
@@ -218,3 +217,5 @@
 
     </body>
 </html>
+
+  <script src="index.js"> </script>
